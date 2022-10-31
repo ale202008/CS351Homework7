@@ -153,4 +153,13 @@ public class DefaultContainer implements Container {
 		assert wellFormed() : "invariant failed at end of remove";
 		return removed;
 	}
+
+	@Override //implementation
+	public String toString() {
+		String string = "";
+		for (Coin i = head; i != null; i = i.next) {
+			string = string + i.type + "\n";
+		}
+		return string;
+	}
 }

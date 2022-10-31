@@ -73,11 +73,17 @@ public class MoveStack {
 		// using a third stack as the helper stack.
 		// Do not use spies!
 		
-		Stack t = new Stack();
-		t.add(b.withdraw(Type.DOLLAR));
-		t.add(b.withdraw(Type.PENNY));
-		t.add(b.withdraw(Type.NICKEL));
-		Stack y = new Stack();
-		Stack u = new Stack();
+		Stack from = new Stack();
+		Stack to = new Stack();
+		Stack helper = new Stack();
+		
+		for (int i = 0; i < coinsToStack.length; i++) {
+			from.add(b.withdraw(coinsToStack[i]));
+		}
+		System.out.print("from Stack\n-----\n" + from.toString() );
+		
+		doMove(from, to, helper);
+		System.out.print("\nto Stack\n-----\n" + to.toString() );
+
 	}
 }
