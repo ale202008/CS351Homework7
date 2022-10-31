@@ -38,7 +38,7 @@ public class MoveStack {
 	}
 	
 	// TODO: Helper method
-	
+	// Used https://www.geeksforgeeks.org/c-program-for-tower-of-hanoi/ as reference for implementation
 	public static void Helper(int n, Stack left, Stack middle, Stack right) {
 		
 		if (n == 0) {
