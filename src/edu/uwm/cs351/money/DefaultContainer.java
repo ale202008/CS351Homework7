@@ -25,6 +25,21 @@ public class DefaultContainer implements Container {
 		// TODO: 
 		// 1. No cycles allowed (use Tortoise and Hare)
 		// 2. Every coin in this container must be owned by this container
+		
+		//Invariant 1
+		for (Coin c = head; c != null; c = c.next) {
+			if (c.next == head) {
+				return false;
+			}
+		}
+		
+		//Invariant 2
+		for (Coin c = head; c != null; c = c.next) {
+			if (c.owner != this) {
+				return false;
+			}
+		}
+		
 		return true;
 	}
 	
@@ -48,31 +63,31 @@ public class DefaultContainer implements Container {
 		
 	// TODO: Many methods
 	
-	@Override
+	@Override // required
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	@Override // required
 	public int size() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	@Override // required
 	public boolean canAdd(Coin c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	@Override // required
 	public void add(Coin c) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	@Override // required
 	public Coin remove() throws NoSuchElementException {
 		// TODO Auto-generated method stub
 		return null;
