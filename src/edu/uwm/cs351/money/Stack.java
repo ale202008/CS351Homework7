@@ -1,5 +1,10 @@
 package edu.uwm.cs351.money;
 
+/*
+ * Andrew Le
+ * Homework 7, CS 351
+ */
+
 /**
  * A LIFO container of coins
  * that requires a coin cannot be placed on smaller ones

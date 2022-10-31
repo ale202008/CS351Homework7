@@ -1,5 +1,10 @@
 package edu.uwm.cs351.money;
 
+/*
+ * Andrew Le
+ * Homework 7, CS 351
+ */
+
 /**
  * A FIFO container of coins.
  */
@@ -15,12 +20,12 @@ public class Pipeline extends DefaultContainer {
 		
 		
 		//Invariant Pipeline
-		if (head != null && tail != null) {
+		if (super.head != null && tail == null) {
 			return report("tail is not the last coin in Pipeline");
 		}
 		
 		Coin c;
-		for (c = super.head; c != null; c = c.next) {
+		for (c = head; c != null; c = c.next) {
 			if (c == tail) {
 				break;
 			}
