@@ -66,30 +66,53 @@ public class DefaultContainer implements Container {
 	@Override // required
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		assert wellFormed() : "invariant failed at start of isEmpty";
+		
+		if (head != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override // required
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		assert wellFormed() : "invariant failed at start of size";
+		
+		int count = 0;
+		for (Coin c = head; c != null && c.next != null; c = c.next) {
+			count++;
+		}
+		return count;
 	}
 
 	@Override // required
 	public boolean canAdd(Coin c) {
 		// TODO Auto-generated method stub
-		return false;
+		assert wellFormed() : "invariant failed at start of canAdd";
+
+		return true;
 	}
 
 	@Override // required
 	public void add(Coin c) {
 		// TODO Auto-generated method stub
+		assert wellFormed() : "invariant failed at start of add";
+		
+		
+		assert wellFormed() : "invariant failed at end of add";
 		
 	}
 
 	@Override // required
 	public Coin remove() throws NoSuchElementException {
 		// TODO Auto-generated method stub
+		assert wellFormed() : "invariant failed at start of remove";
+		
+		
+		assert wellFormed() : "invariant failed at end of remove";
 		return null;
 	}
 }
