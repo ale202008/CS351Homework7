@@ -102,16 +102,22 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of canAdd";
 		
-		if (c == null || c == head) {
+		if (c == null) {
 			return false;
 		}
-		
-		if (isEmpty() || c.type.getValue() >= head.type.getValue()) {
+		for (Coin i = head; i != null; i = i.next) {
+			if (i == c) {
+				return false;
+			}
+		}
+		if (c.owner == null) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		
+
+		
+		
+		return false;
 	}
 
 	@Override // required
@@ -119,14 +125,17 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of add";
 		
-		takeOwnership(c);
 		
 		if (!canAdd(c)) {
+			takeOwnership(c);
 			throw new IllegalArgumentException();
 		}
 		else {
+			takeOwnership(c);
 			c.next = head;
 			head = c;
+			
+
 		}
 		
 		assert wellFormed() : "invariant failed at end of add";
