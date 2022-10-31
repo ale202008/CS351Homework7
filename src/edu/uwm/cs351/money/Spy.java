@@ -19,6 +19,7 @@ public class Spy {
 	
 	private static int statistics[] = new int[Statistic.values().length];
 
+	private static boolean doReport = true;
 	private static String lastReport;
 	
 	/**
@@ -56,26 +57,27 @@ public class Spy {
 	 */
 	public static DefaultContainer makeContainer(Coin h) {
 		return new DefaultContainer() {
-			@Override
+			@Override // decorate
 			protected boolean report(String message) {
 				++statistics[Statistic.REPORT.ordinal()];
 				lastReport = message;
+				if (doReport) super.report(message);
 				return false;
 			}
 
-			@Override
+			@Override // decorate
 			protected boolean wellFormed() {
 				++statistics[Statistic.WELLFORMED.ordinal()];
 				return super.wellFormed();
 			}
 
-			@Override
+			@Override // decorate
 			protected void takeOwnership(Coin c) {
 				++statistics[Statistic.TAKEOWNERSHIP.ordinal()];
 				super.takeOwnership(c);
 			}
 
-			@Override
+			@Override // decorate
 			protected void relinquish(Coin c) {
 				++statistics[Statistic.RELINQUISH.ordinal()];
 				super.relinquish(c);
@@ -94,26 +96,27 @@ public class Spy {
 	 */
 	public static Stack makeStack(Coin h) {
 		return new Stack() {
-			@Override
+			@Override // decorate
 			protected boolean report(String message) {
 				++statistics[Statistic.REPORT.ordinal()];
 				lastReport = message;
+				if (doReport) super.report(message);
 				return false;
 			}
 
-			@Override
+			@Override // decorate
 			protected boolean wellFormed() {
 				++statistics[Statistic.WELLFORMED.ordinal()];
 				return super.wellFormed();
 			}
 
-			@Override
+			@Override // decorate
 			protected void takeOwnership(Coin c) {
 				++statistics[Statistic.TAKEOWNERSHIP.ordinal()];
 				super.takeOwnership(c);
 			}
 
-			@Override
+			@Override // decorate
 			protected void relinquish(Coin c) {
 				++statistics[Statistic.RELINQUISH.ordinal()];
 				super.relinquish(c);
@@ -133,26 +136,27 @@ public class Spy {
 	 */
 	public static Pipeline makePipeline(Coin h, Coin t) {
 		return new Pipeline() {
-			@Override
+			@Override // decorate
 			protected boolean report(String message) {
 				++statistics[Statistic.REPORT.ordinal()];
 				lastReport = message;
+				if (doReport) super.report(message);
 				return false;
 			}
 
-			@Override
+			@Override // decorate
 			protected boolean wellFormed() {
 				++statistics[Statistic.WELLFORMED.ordinal()];
 				return super.wellFormed();
 			}
 
-			@Override
+			@Override // decorate
 			protected void takeOwnership(Coin c) {
 				++statistics[Statistic.TAKEOWNERSHIP.ordinal()];
 				super.takeOwnership(c);
 			}
 
-			@Override
+			@Override // decorate
 			protected void relinquish(Coin c) {
 				++statistics[Statistic.RELINQUISH.ordinal()];
 				super.relinquish(c);
@@ -221,7 +225,13 @@ public class Spy {
 	public static boolean wellFormed(Container c) {
 		if (c == null) {
 			System.err.println("Test case incorrectly poassed a null");
+		} 
+		boolean saved = doReport;
+		try {
+			doReport = false;
+			return ((DefaultContainer)c).wellFormed();
+		} finally {
+			doReport = saved;
 		}
-		return ((DefaultContainer)c).wellFormed();
 	}
 }

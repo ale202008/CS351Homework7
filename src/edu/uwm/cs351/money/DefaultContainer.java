@@ -47,4 +47,34 @@ public class DefaultContainer implements Container {
 	}
 		
 	// TODO: Many methods
+	
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean canAdd(Coin c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void add(Coin c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Coin remove() throws NoSuchElementException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
