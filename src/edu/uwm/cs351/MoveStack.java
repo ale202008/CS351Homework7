@@ -22,33 +22,32 @@ public class MoveStack {
 	 */
 	public static void doMove(Stack from, Stack to, Stack helper) {
 		// TODO: check arguments and then call recursive helper method to do work
-		if (from == null) {
-			return;
+		if (from == null || to == null || helper == null) {
+			throw new NullPointerException();
 		}
-		if (!to.isEmpty() || to == null) {
-			return;
+		if (!to.isEmpty()) {
+			throw new IllegalArgumentException();
 		}
-		if (helper == to || helper == null || !helper.isEmpty()) {
-			return;
+		if (helper == to || !helper.isEmpty()) {
+			throw new IllegalArgumentException();
 		}
 		
 		int n = from.size();
-		Helper(n - 1, from, to, helper);
+		Helper(n, from, to, helper);
 
 	}
 	
 	// TODO: Helper method
 	// Used https://www.geeksforgeeks.org/c-program-for-tower-of-hanoi/ as reference for implementation
-	public static void Helper(int n, Stack left, Stack middle, Stack right) {
+	public static void Helper(int n, Stack from, Stack to, Stack helper) {
 		
 		if (n == 0) {
-			right.add(left.remove());
 			return;
 		}
 		else {
-			Helper(n-1, left, right, middle);
-			right.add(left.remove());
-			Helper(n-1, middle, left, right);
+			Helper(n-1, from, helper, to);
+			to.add(from.remove());
+			Helper(n-1, helper, to, from);
 		}
 		
 		
