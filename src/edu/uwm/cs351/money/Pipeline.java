@@ -13,8 +13,20 @@ public class Pipeline extends DefaultContainer {
 			return false;
 		}
 		
-		if (tail.next != null) {
-			return report("tail is not the last coin in the Pipeline.");
+		
+		//Invariant Pipeline
+		if (head != null && tail != null) {
+			return report("tail is not the last coin in Pipeline");
+		}
+		
+		Coin c;
+		for (c = super.head; c != null; c = c.next) {
+			if (c == tail) {
+				break;
+			}
+		}
+		if (c != tail) {
+			return report("tail is not the last coin in Pipeline");
 		}
 		
 		return true;

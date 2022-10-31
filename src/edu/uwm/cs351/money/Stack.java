@@ -13,11 +13,13 @@ public class Stack extends DefaultContainer {
 			return false;
 		}
 		
+		//Invariant Stack
 		for (Coin c = head; c != null && c.next != null; c = c.next) {
 			if (c.type.getSize() > c.next.type.getSize()) {
 				return report("coin cannot be placed on smaller ones.");
 			}
 		}
+		
 		return true;
 	}
 	

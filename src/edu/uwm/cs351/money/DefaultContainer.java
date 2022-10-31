@@ -105,11 +105,7 @@ public class DefaultContainer implements Container {
 		if (c == null) {
 			return false;
 		}
-		for (Coin i = head; i != null; i = i.next) {
-			if (i == c) {
-				return false;
-			}
-		}
+
 		if (c.owner == null) {
 			return true;
 		}
@@ -131,8 +127,6 @@ public class DefaultContainer implements Container {
 			takeOwnership(c);
 			c.next = head;
 			head = c;
-			
-
 		}
 		
 		assert wellFormed() : "invariant failed at end of add";
