@@ -2,7 +2,6 @@ package edu.uwm.cs351.money;
 
 import java.util.NoSuchElementException;
 
-import edu.uwm.cs351.ApptBook.Node;
 
 /*
  * Andrew Le
@@ -106,7 +105,9 @@ public class DefaultContainer implements Container {
 			throw new NullPointerException();
 		}
 		
-		if (c.type )
+		if (c.type.getValue() < head.type.getValue()) {
+			return false;
+		}
 		
 		return true;
 	}
@@ -116,6 +117,14 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of add";
 		
+		if (!canAdd(c)) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			head.next = c;
+			head = c;
+			head.next = null;
+		}
 		
 		assert wellFormed() : "invariant failed at end of add";
 		
