@@ -45,7 +45,7 @@ public class DefaultContainer implements Container {
 		//Invariant 2
 		for (Coin c = head; c != null; c = c.next) {
 			if (c.owner != this) {
-				return false;
+				return report("owner is not this container.");
 			}
 		}
 		
@@ -77,7 +77,7 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of isEmpty";
 		
-		if (head != null) {
+		if (head == null) {
 			return true;
 		}
 		else {
@@ -91,7 +91,7 @@ public class DefaultContainer implements Container {
 		assert wellFormed() : "invariant failed at start of size";
 		
 		int count = 0;
-		for (Coin c = head; c != null && c.next != null; c = c.next) {
+		for (Coin c = head; c != null; c = c.next) {
 			count++;
 		}
 		return count;
@@ -101,15 +101,17 @@ public class DefaultContainer implements Container {
 	public boolean canAdd(Coin c) {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of canAdd";
-		if (c == null) {
-			throw new NullPointerException();
-		}
 		
-		if (c.type.getValue() < head.type.getValue()) {
+		if (c == null) {
 			return false;
 		}
 		
-		return true;
+		if (isEmpty() || c.type.getValue() > head.type.getValue()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override // required
@@ -123,6 +125,7 @@ public class DefaultContainer implements Container {
 		else {
 			c.next = head;
 			head = c;
+			head.owner = this;
 		}
 		
 		assert wellFormed() : "invariant failed at end of add";
@@ -130,9 +133,13 @@ public class DefaultContainer implements Container {
 	}
 
 	@Override // required
-	public Coin remove() throws NoSuchElementException {
+	public Coin remove(){
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of remove";
+		
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
 		
 		Coin removed = null;
 		if (head != null) {
