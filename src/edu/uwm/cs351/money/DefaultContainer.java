@@ -121,9 +121,8 @@ public class DefaultContainer implements Container {
 			throw new IllegalArgumentException();
 		}
 		else {
-			head.next = c;
+			c.next = head;
 			head = c;
-			head.next = null;
 		}
 		
 		assert wellFormed() : "invariant failed at end of add";
@@ -135,8 +134,15 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of remove";
 		
+		Coin removed = null;
+		if (head != null) {
+			removed = head;
+			head = head.next;
+			removed.owner = null;
+		}
+		
 		
 		assert wellFormed() : "invariant failed at end of remove";
-		return null;
+		return removed;
 	}
 }
