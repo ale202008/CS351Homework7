@@ -21,6 +21,7 @@ public class Stack extends DefaultContainer {
 		return true;
 	}
 	
+	@Override //implementation
 	public boolean canAdd(Coin c) {
 		assert wellFormed() : "invariant failed at the start of StackcanAdd";
 		if (!super.canAdd(c)) {
