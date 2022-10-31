@@ -102,11 +102,11 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of canAdd";
 		
-		if (c == null) {
+		if (c == null || c == head) {
 			return false;
 		}
 		
-		if (isEmpty() || c.type.getValue() > head.type.getValue()) {
+		if (isEmpty() || c.type.getValue() >= head.type.getValue()) {
 			return true;
 		}
 		else {
@@ -119,13 +119,14 @@ public class DefaultContainer implements Container {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of add";
 		
+		takeOwnership(c);
+		
 		if (!canAdd(c)) {
 			throw new IllegalArgumentException();
 		}
 		else {
 			c.next = head;
 			head = c;
-			head.owner = this;
 		}
 		
 		assert wellFormed() : "invariant failed at end of add";
@@ -145,7 +146,7 @@ public class DefaultContainer implements Container {
 		if (head != null) {
 			removed = head;
 			head = head.next;
-			removed.owner = null;
+			relinquish(removed);
 		}
 		
 		
