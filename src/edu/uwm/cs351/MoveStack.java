@@ -22,9 +22,38 @@ public class MoveStack {
 	 */
 	public static void doMove(Stack from, Stack to, Stack helper) {
 		// TODO: check arguments and then call recursive helper method to do work
+		if (from == null) {
+			return;
+		}
+		if (!to.isEmpty() || to == null) {
+			return;
+		}
+		if (helper == to || helper == null || !helper.isEmpty()) {
+			return;
+		}
+		
+		int n = from.size();
+		Helper(n - 1, from, to, helper);
+
 	}
 	
 	// TODO: Helper method
+	
+	public static void Helper(int n, Stack left, Stack middle, Stack right) {
+		
+		if (n == 0) {
+			right.add(left.remove());
+			return;
+		}
+		else {
+			Helper(n-1, left, right, middle);
+			right.add(left.remove());
+			Helper(n-1, middle, left, right);
+		}
+		
+		
+	}
+	
 	
 	// coins to request.  We only have $2.00, so we
 	// use a lot of pennies
@@ -44,5 +73,12 @@ public class MoveStack {
 		// 3. Call doMove to move coins from first stack to second stack
 		// using a third stack as the helper stack.
 		// Do not use spies!
+		
+		Stack t = new Stack();
+		t.add(b.withdraw(Type.DOLLAR));
+		t.add(b.withdraw(Type.PENNY));
+		t.add(b.withdraw(Type.NICKEL));
+		Stack y = new Stack();
+		Stack u = new Stack();
 	}
 }

@@ -52,47 +52,42 @@ public class Pipeline extends DefaultContainer {
 		}
 		else {
 			takeOwnership(c);
-			c.next = head;
-			head = c;
-		}
-		
-		if (head.next == null) {
-			tail = head;
+			if (isEmpty()) {
+				head = tail = c;
+			}
+			else {
+				tail.next = c;
+				tail = c;
+			}
 		}
 		
 		assert wellFormed() : "invariant failed at the start of Pipelineadd";
 	}
 	
-	public Coin remove() {
-		assert wellFormed() : "invariant failed at start of Pipelineremove";
+	@Override //implementation
+	public Coin remove(){
+		// TODO Auto-generated method stub
+		assert wellFormed() : "invariant failed at start of remove";
 		
 		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
 		
 		Coin removed = null;
-		
-		if (tail != null) {
-			removed = tail;
-			
-			if (head == tail) {
-				head = tail = null;
-			}
-			else {
-				for (Coin c = head; c != null; c = c.next) {
-					if (c.next == tail) {
-						c.next = null;
-						tail = c;
-						break;
-					}
-				}
-			}
-			
+		if (head != null) {
+			removed = head;
+			head = head.next;
+			removed.next = null;
 			relinquish(removed);
+		}
+		if (head == null) {
+			tail = null;
 		}
 		
 		
-		assert wellFormed() : "invariant failed at end of Pipelineremove";
+		assert wellFormed() : "invariant failed at end of remove";
 		return removed;
 	}
+	
+
 }
