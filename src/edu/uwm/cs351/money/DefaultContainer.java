@@ -2,6 +2,8 @@ package edu.uwm.cs351.money;
 
 import java.util.NoSuchElementException;
 
+import edu.uwm.cs351.ApptBook.Node;
+
 /*
  * Andrew Le
  * Homework 7, CS 351
@@ -32,9 +34,12 @@ public class DefaultContainer implements Container {
 		// 2. Every coin in this container must be owned by this container
 		
 		//Invariant 1
-		for (Coin c = head; c != null; c = c.next) {
-			if (c.next == head) {
-				return false;
+		if (head != null) {
+			// This check uses the "tortoise and hare" algorithm attributed to Floyd.
+			Coin fast = head.next;
+			for (Coin p = head; fast != null && fast.next != null; p = p.next) {
+				if (p == fast) return report("list is cyclic!");
+				fast = fast.next.next;
 			}
 		}
 		
