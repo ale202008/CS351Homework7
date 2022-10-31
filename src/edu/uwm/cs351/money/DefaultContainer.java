@@ -2,6 +2,11 @@ package edu.uwm.cs351.money;
 
 import java.util.NoSuchElementException;
 
+/*
+ * Andrew Le
+ * Homework 7, CS 351
+ */
+
 /**
  * A LIFO Container of Coins
  */
@@ -92,7 +97,12 @@ public class DefaultContainer implements Container {
 	public boolean canAdd(Coin c) {
 		// TODO Auto-generated method stub
 		assert wellFormed() : "invariant failed at start of canAdd";
-
+		if (c == null) {
+			throw new NullPointerException();
+		}
+		
+		if (c.type )
+		
 		return true;
 	}
 
