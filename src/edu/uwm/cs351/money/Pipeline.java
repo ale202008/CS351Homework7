@@ -13,27 +13,51 @@ public class Pipeline extends DefaultContainer {
 	
 	// TODO: Add what is necessary to get correct semantics
 	
+	@Override //decorate
 	protected boolean wellFormed() {
+		
 		if (!super.wellFormed()) {
 			return false;
 		}
 		
 		
 		//Invariant Pipeline
-		if (super.head != null && tail == null) {
+		if ((head != null && tail == null) || (tail != null && tail.next != null)) {
 			return report("tail is not the last coin in Pipeline");
 		}
-		
-		Coin c;
-		for (c = head; c != null; c = c.next) {
-			if (c == tail) {
-				break;
+		else {
+			Coin c;
+			for (c = head; c != null; c = c.next) {
+				if (c == tail) {
+					break;
+				}
 			}
-		}
-		if (c != tail) {
-			return report("tail is not the last coin in Pipeline");
+			if (c != tail) {
+				return report("tail is not the last coin in Pipeline");
+			}
 		}
 		
 		return true;
+	}
+	
+	@Override //implementation
+	public void add(Coin c) {
+		assert wellFormed() : "invariant failed at the start of Pipelineadd";
+		
+		if (!canAdd(c)) {
+			takeOwnership(c);
+			throw new IllegalArgumentException();
+		}
+		else {
+			takeOwnership(c);
+			c.next = head;
+			head = c;
+		}
+		
+		if (head.next == null) {
+			tail = head;
+		}
+		
+		assert wellFormed() : "invariant failed at the start of Pipelineadd";
 	}
 }

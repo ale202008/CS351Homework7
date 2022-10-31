@@ -12,6 +12,8 @@ package edu.uwm.cs351.money;
 public class Stack extends DefaultContainer {
 	// TODO
 	// Add the least amount that gives the required semantics.
+	
+	@Override //decorate
 	protected boolean wellFormed() {
 		
 		if (!super.wellFormed()) {
@@ -28,7 +30,7 @@ public class Stack extends DefaultContainer {
 		return true;
 	}
 	
-	@Override //implementation
+	@Override //decorate
 	public boolean canAdd(Coin c) {
 		assert wellFormed() : "invariant failed at the start of StackcanAdd";
 		if (!super.canAdd(c)) {
