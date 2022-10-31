@@ -1,5 +1,7 @@
 package edu.uwm.cs351.money;
 
+import java.util.NoSuchElementException;
+
 /*
  * Andrew Le
  * Homework 7, CS 351
@@ -59,5 +61,38 @@ public class Pipeline extends DefaultContainer {
 		}
 		
 		assert wellFormed() : "invariant failed at the start of Pipelineadd";
+	}
+	
+	public Coin remove() {
+		assert wellFormed() : "invariant failed at start of Pipelineremove";
+		
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		
+		Coin removed = null;
+		
+		if (tail != null) {
+			removed = tail;
+			
+			if (head == tail) {
+				head = tail = null;
+			}
+			else {
+				for (Coin c = head; c != null; c = c.next) {
+					if (c.next == tail) {
+						c.next = null;
+						tail = c;
+						break;
+					}
+				}
+			}
+			
+			relinquish(removed);
+		}
+		
+		
+		assert wellFormed() : "invariant failed at end of Pipelineremove";
+		return removed;
 	}
 }
