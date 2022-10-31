@@ -14,38 +14,23 @@ public class Stack extends DefaultContainer {
 		}
 		
 		for (Coin c = head; c != null && c.next != null; c = c.next) {
-			if (c.type.getValue() > c.next.type.getValue()) {
+			if (c.type.getSize() > c.next.type.getSize()) {
 				return report("coin cannot be placed on smaller ones.");
 			}
 		}
 		return true;
 	}
 	
-//	@Override // implementation
-//	public void add(Coin c) {
-//		// TODO Auto-generated method stub
-//		assert wellFormed() : "invariant failed at start of Stackadd";
-//		
-//		
-//		if (!canAdd(c)) {
-//			takeOwnership(c);
-//			throw new IllegalArgumentException();
-//		}
-//		else {
-//			takeOwnership(c);
-//			
-//			Coin i;
-//			for (i = head; head != null; i = i.next) {
-//				if (i.type.getValue() >= c.type.getValue()) {
-//					break;
-//				}
-//			}
-//			c.next = i.next;
-//			i.next = c;
-//
-//		}
-//		
-//		assert wellFormed() : "invariant failed at end of Stackadd";
-//		
-//	}
+	public boolean canAdd(Coin c) {
+		assert wellFormed() : "invariant failed at the start of StackcanAdd";
+		if (!super.canAdd(c)) {
+			return false;
+		}
+		if (head != null && c != null && c.type.getSize() > head.type.getSize()) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 }
