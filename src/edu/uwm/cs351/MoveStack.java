@@ -4,6 +4,11 @@ import edu.uwm.cs351.money.Bank;
 import edu.uwm.cs351.money.Stack;
 import edu.uwm.cs351.money.Type;
 
+/*
+ * Andrew Le
+ * Homework 7, CS 351
+ */
+
 /**
  * A variation on Towers of Hanoi
  */
